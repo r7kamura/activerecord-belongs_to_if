@@ -1,13 +1,13 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "activerecord/may_belong_to/version"
+require "active_record/may_belong_to/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "activerecord-may_belong_to"
-  spec.version       = Activerecord::MayBelongTo::VERSION
+  spec.version       = ActiveRecord::MayBelongTo::VERSION
   spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
-  spec.summary       = "Add may_belong_to to preload polymorphic associations."
+  spec.summary       = "Allows you to preload complex polymorphic associations."
   spec.homepage      = "https://github.com/r7kamura/activerecord-may_belong_to"
   spec.license       = "MIT"
 
@@ -16,7 +16,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activerecord"
+  spec.add_dependency "activerecord", ">= 4.0.0"
+  spec.add_dependency "activesupport"
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
 end

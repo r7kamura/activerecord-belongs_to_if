@@ -1,5 +1,5 @@
-# ActiveRecord::MayBelongTo
-Allows you to preload complex polymorphic associations.
+# ActiveRecord::BelongToIf
+Allows you to manage preload condition by `:if` condition.
 
 ## Usage
 ```rb
@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
 end
 
 class Activity < ActiveRecord::Base
-  may_belong_to :comment, if: -> { activity_type == "Comment" }
-  may_belong_to :issue, if: -> { activity_type == "Issue" }
-  may_belong_to :pull_request, if: -> { activity_type == "PullRequest" }
+  belong_to :comment, if: -> { activity_type == "Comment" }
+  belong_to :issue, if: -> { activity_type == "Issue" }
+  belong_to :pull_request, if: -> { activity_type == "PullRequest" }
 end
 ```
 

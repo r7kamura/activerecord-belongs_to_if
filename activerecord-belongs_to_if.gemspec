@@ -1,14 +1,14 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "active_record/may_belong_to/version"
+require "active_record/belongs_to_if/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "activerecord-may_belong_to"
-  spec.version       = ActiveRecord::MayBelongTo::VERSION
+  spec.name          = "activerecord-belongs_to_if"
+  spec.version       = ActiveRecord::BelongsToIf::VERSION
   spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
-  spec.summary       = "Allows you to preload complex polymorphic associations."
-  spec.homepage      = "https://github.com/r7kamura/activerecord-may_belong_to"
+  spec.summary       = "Allows you to manage preload condition by `:if` condition."
+  spec.homepage      = "https://github.com/r7kamura/activerecord-belongs_to_if"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

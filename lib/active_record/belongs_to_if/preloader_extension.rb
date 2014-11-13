@@ -6,7 +6,7 @@ module ActiveRecord
         super.select do |owner|
           case if_condition
           when Proc
-            owner.instance_eval(&if_condition)
+            owner.instance_exec(&if_condition)
           when String, Symbol
             owner.send(if_condition)
           else

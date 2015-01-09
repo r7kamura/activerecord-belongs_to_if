@@ -1,4 +1,4 @@
-# ActiveRecord::BelongToIf
+# ActiveRecord::BelongsToIf
 Allows you to manage preload condition by `:if` condition.
 
 ## Usage

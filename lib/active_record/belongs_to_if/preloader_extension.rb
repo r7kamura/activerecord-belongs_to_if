@@ -28,28 +28,40 @@ module ActiveRecord
 
       # @note Override to change `records_by_owner` so that empty array is used.
       def associated_records_by_owner(preloader)
-        owners_map = owners_by_key
-        owner_keys = owners_map.keys.compact
-
         # Each record may have multiple owners, and vice-versa
         records_by_owner = Hash.new do |hash, key|
           hash[key] = []
         end
 
-        if owner_keys.any?
-          # Some databases impose a limit on the number of ids in a list (in Oracle it's 1000)
-          # Make several smaller queries if necessary or make one query if the adapter supports it
-          sliced  = owner_keys.each_slice(klass.connection.in_clause_length || owner_keys.size)
+        # To keep compatibility with Rails > 4
+        if ::ActiveRecord::VERSION::MAJOR > 4
+          records = load_records
+          records_by_owner = Hash.new do |hash, key|
+            hash[key] = []
+          end
+          owners.each_with_object(records_by_owner) do |owner, result|
+            result[owner] = records[convert_key(owner[owner_key_name])] || []
+          end
+        else
+          owners_map = owners_by_key
+          owner_keys = owners_map.keys.compact
 
-          records = load_slices sliced
-          records.each do |record, owner_key|
-            owners_map[owner_key].each do |owner|
-              records_by_owner[owner] << record
+
+          if owner_keys.any?
+            # Some databases impose a limit on the number of ids in a list (in Oracle it's 1000)
+            # Make several smaller queries if necessary or make one query if the adapter supports it
+            sliced  = owner_keys.each_slice(klass.connection.in_clause_length || owner_keys.size)
+
+            records = load_slices sliced
+            records.each do |record, owner_key|
+              owners_map[owner_key].each do |owner|
+                records_by_owner[owner] << record
+              end
             end
           end
-        end
 
-        records_by_owner
+          records_by_owner
+        end
       end
 
       # @return [Proc, String, Symbol, nil] The value :if option passed to belongs_to.

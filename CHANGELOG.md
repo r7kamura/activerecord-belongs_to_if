@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Support ActiveRecord 5.2.0
+
 ## 0.1.0
 
 - Support ActiveRecord 5.0.0

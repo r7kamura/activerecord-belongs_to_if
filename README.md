@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
 end
 
 class Activity < ActiveRecord::Base
-  belong_to :comment, if: -> { activity_type == "Comment" }
-  belong_to :issue, if: -> { activity_type == "Issue" }
-  belong_to :pull_request, if: -> { activity_type == "PullRequest" }
+  belongs_to :comment, if: -> { activity_type == "Comment" }
+  belongs_to :issue, if: -> { activity_type == "Issue" }
+  belongs_to :pull_request, if: -> { activity_type == "PullRequest" }
 end
 ```
 
